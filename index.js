@@ -8,7 +8,7 @@
 
 
 
- class Prompter{
+ class Dialog{
 
  /**
  * Prompts the question to the console
@@ -56,4 +56,4 @@
 /**
  * Expose `Prompter`.
  */
- module.exports = Prompter;
+ module.exports = Dialog;
