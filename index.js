@@ -6,10 +6,7 @@
 
 'use strict';
 
-/**
- * Expose `Prompter`.
- */
- module.exports = Prompter;
+
 
  class Prompter{
 
@@ -24,17 +21,17 @@
  * 
  */
 
- static promptQuestion(question){
+ static promptQuestionPromise(question){
     const questionPromise = new Promise((resolve, reject) => {
-        process.stdout.write(question+'\n');
+        process.stdout.write(question+' : ');
         
-        process.stdin.on('data', userInput =>{
-            if(data =='exit\r\n') process.exit();
+        process.stdin.once('data', userInput =>{
+            if(userInput =='exit\r\n') process.exit();
         
             const cleanedInput = userInput.toString().replace(/(\r\n|\n|\r)/gm,"");
             resolve(cleanedInput);
+            
         
-
         });
     
 
@@ -44,4 +41,19 @@
     });
     return questionPromise;
  }
+
+ /**
+ * Kill the terminal
+ */
+
+    static endTheDialog(){
+
+        process.exit(0); // kills the terminal
+
+ }
 }
+
+/**
+ * Expose `Prompter`.
+ */
+ module.exports = Prompter;
