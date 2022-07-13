@@ -10,6 +10,10 @@
 
  class Dialog{
 
+
+static colors = require('./lib/colors');
+static styles = require('./lib/styles');
+
  /**
  * Prompts the question to the console
  * Returns a promise that will resolve when the user inputs and hits the enter button.
@@ -23,7 +27,7 @@
 
  static promptQuestionPromise(question){
     const questionPromise = new Promise((resolve, reject) => {
-        process.stdout.write(question+' : ');
+        process.stdout.write(`\x1b[93m${question} : \x1b[39m`);
         
         process.stdin.once('data', userInput =>{
             if(userInput =='exit\r\n') process.exit();
