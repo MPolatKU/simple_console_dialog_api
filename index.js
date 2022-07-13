@@ -85,10 +85,10 @@ static styles = require('./lib/styles');
 
    static promptQuestionCallback(question,callback,style){
    
-        const message = (style) ? `\x1b[${style[0]}m ${question} : \x1b[${style[1]}m ` : `${question} : `;
-        process.stdout.write(message);
+        if (style) this.#setTerminalColor(style);
+        process.stdout.write(question+" : ");
         
-        this.#setTerminalColor(Dialog.colors.bgRed);
+        this.#setTerminalColor(Dialog.colors.yellow);
 
         process.stdin.once('data', userInput =>{
             if(userInput =='exit\r\n') process.exit();
@@ -113,7 +113,7 @@ static styles = require('./lib/styles');
     process.stdout.write(message);
 
     this.#resetTerminalStyle();
-    this.#newLine();
+    this.newLine();
 
  }
 
@@ -129,6 +129,7 @@ static styles = require('./lib/styles');
 
 
 /**
+ * @private
  * reset the terminal style
  */ 
 
@@ -138,16 +139,19 @@ static styles = require('./lib/styles');
     }
 
 /**
+ * 
  * line break
  */ 
 
-    static #newLine(){
+    static newLine(){
 
         // n\ line 
    process.stdout.write(`\n`);
    }
 
 /**
+ * @private
+ * 
  * @param  {./lib/colors|.lib/style} style
  */ 
 
@@ -161,7 +165,7 @@ static styles = require('./lib/styles');
 
 /**
  * Terminal provides the user input with some formatting at the the end of it
- * 
+ * @private
  * @param  {String} userInput
  * 
  * @return {String}
@@ -178,6 +182,6 @@ static styles = require('./lib/styles');
 }
 
 /**
- * Expose `Prompter`.
+ * Expose `Dialog`.
  */
  module.exports = Dialog;
